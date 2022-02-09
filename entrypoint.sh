@@ -21,20 +21,24 @@ fi
 
 log "Placeholder:" "$placeholder"
 
-if test -f "$filename"; then
+if test -f $filename; then
     content=$(cat "$filename")
+    log "File Content:" "$content"
 else
     error "Version file not found! Looked for:" "$filename"
     exit 1;
 fi
 
-log "File Content:" "\n$content"
+if test -r $filename -a -w $filename, echo $? = 0; then
+    git fetch --tags --force
+    latestVersionTag=$(git describe --tags "$(git rev-list --tags --max-count=1)")
+    
+    log "Replacing placeholder with:" "$latestVersionTag"
 
-log "Replacing placeholder with:" "$latestVersionTag"
+    echo "$latestVersionTag" > "$filename"
 
-res=$((echo "$latestVersionTag" > "$filename") 2>&1)
-echo $res
-
-#echo "$latestVersionTag" > "$filename"
-
-log "Updated File Content:" "\n$content"
+    log "Updated File Content:" "$content"
+else
+    error "Cannot write on " "$filename"
+    exit 1;
+fi
