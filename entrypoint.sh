@@ -37,4 +37,4 @@ log "Replacing placeholder with:" "$latestVersionTag"
 
 echo "$latestVersionTag" > "$filename"
 
-log "Updated File Content:" "\n$updatedContent"
+log "Updated File Content:" "\n$content"
