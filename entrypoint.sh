@@ -35,7 +35,6 @@ latestVersionTag=$(git describe --tags "$(git rev-list --tags --max-count=1)")
 
 log "Replacing placeholder with:" "$latestVersionTag"
 
-updatedContent=$(< "$filename" sed "s/$placeholder/$latestVersionTag/g")
-echo "$updatedContent" > "$filename"
+echo "$latestVersionTag" > "$filename"
 
 log "Updated File Content:" "\n$updatedContent"
